@@ -1,18 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { GitHubUser } from "../context/FravoritesContext";
 
 export const useGitHubUserDetail = (username: string) => {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
-  useEffect(() => {
-    axios
-      .get(`https://api.github.com/users/${username}`)
-      .then((res) => setUser(res.data))
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+  const fetchUser = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await axios.get(`https://api.github.com/users/${username}`);
+      setUser(res.data);
+    } catch (err) {
+      console.error("Error fetching user detail:", err);
+      setError(err as Error);
+    } finally {
+      setLoading(false);
+    }
   }, [username]);
 
-  return { user, loading };
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  return { user, loading, error, refetch: fetchUser };
 };

@@ -2,29 +2,34 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { GitHubUser } from "../context/FravoritesContext";
 
-export function useGitHubUsers(initialSearch?: string) {
+export function useGitHubUsers(searchQuery?: string) {
   const [users, setUsers] = useState<GitHubUser[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const url = initialSearch
-        ? `https://api.github.com/search/users?q=${initialSearch}`
-        : `https://api.github.com/users`;
+      let res;
 
-      const res = await axios.get(url);
-      setUsers(initialSearch ? res.data.items : res.data);
+      if (searchQuery && searchQuery.trim().length > 0) {
+        res = await axios.get(
+          `https://api.github.com/search/users?q=${searchQuery}`
+        );
+        setUsers(res.data.items);
+      } else {
+        res = await axios.get("https://api.github.com/users");
+        setUsers(res.data);
+      }
     } catch (err) {
       console.error("Error fetching users:", err);
     } finally {
       setLoading(false);
     }
-  }, [initialSearch]);
+  }, [searchQuery]);
 
   useEffect(() => {
     fetchUsers();
-  }, [fetchUsers, initialSearch]);
+  }, [fetchUsers]);
 
   return { users, loading, refetch: fetchUsers };
 }
