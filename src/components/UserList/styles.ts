@@ -1,14 +1,15 @@
 import { StyleSheet } from "react-native";
-import { colors, typography } from "../../theme";
+import { Colors, typography } from "../../theme";
 
-export const styles = StyleSheet.create({
-  emptyList: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  emptyText: {
-    ...typography.regular,
-    color: colors.gray,
-  },
-});
+export const getStyles = (colors: Colors) =>
+  StyleSheet.create({
+    emptyList: {
+      flexGrow: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    emptyText: {
+      ...typography.regular,
+      color: colors.gray,
+    },
+  });

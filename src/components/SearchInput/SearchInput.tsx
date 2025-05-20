@@ -1,6 +1,7 @@
 import React from "react";
 import { TextInput, View, Keyboard } from "react-native";
-import { styles } from "./styles";
+import { getStyles } from "./styles";
+import { useTheme } from "@/src/context/ThemeContext";
 
 interface Props {
   value: string;
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export const SearchInput: React.FC<Props> = ({ value, onChange, onSubmit }) => {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
   return (
     <View style={styles.container}>
       <TextInput

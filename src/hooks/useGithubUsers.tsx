@@ -21,7 +21,7 @@ export function useGitHubUsers(searchQuery?: string) {
         setUsers(res.data);
       }
     } catch (err) {
-      console.error("Error fetching users:", err);
+      console.error("Error searching users:", err);
     } finally {
       setLoading(false);
     }

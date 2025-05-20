@@ -1,28 +1,58 @@
-// src/components/UserCard/UserCard.tsx
-import React from "react";
-import { View, Text, Image, Pressable } from "react-native";
-import { styles } from "./styles";
-import { GitHubUser, useFavorites } from "@/src/context/FravoritesContext";
+import React, { useRef } from "react";
+import { View, Text, Image, Pressable, Animated } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+
+import { GitHubUser, useFavorites } from "../../context/FravoritesContext";
+
+import { getStyles } from "./styles";
+import { useTheme } from "@/src/context/ThemeContext";
 
 type Props = {
   user: GitHubUser;
-  onPress?: () => void;
+  onPress: () => void;
 };
 
 export const UserCard: React.FC<Props> = ({ user, onPress }) => {
   const { isFavorite, toggleFavorite } = useFavorites();
 
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
+
+  const handleToggleFavorite = () => {
+    // Pop animation
+    Animated.sequence([
+      Animated.timing(scaleAnim, {
+        toValue: 1.3,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scaleAnim, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    toggleFavorite(user);
+  };
+
   return (
     <Pressable onPress={onPress} style={styles.card}>
-      <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
-      <View style={styles.info}>
-        <Text style={styles.login}>{user.login}</Text>
-        <Pressable onPress={() => toggleFavorite(user)}>
-          <Text style={[styles.favorite]}>
-            {isFavorite(user) ? "★ Favorito" : "☆ Marcar"}
-          </Text>
-        </Pressable>
+      <View style={styles.infoContainer}>
+        <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
+        <Text style={styles.username}>{user.login}</Text>
       </View>
+
+      <Pressable onPress={handleToggleFavorite} hitSlop={10}>
+        <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+          <FontAwesome
+            name={isFavorite(user) ? "star" : "star-o"}
+            size={24}
+            color={colors.primary}
+          />
+        </Animated.View>
+      </Pressable>
     </Pressable>
   );
 };

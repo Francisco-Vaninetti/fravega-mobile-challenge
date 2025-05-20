@@ -1,8 +1,8 @@
 import React from "react";
 import { ScrollView, Image, Text, Button } from "react-native";
 import { GitHubUser } from "../../context/FravoritesContext";
-import { styles } from "./styles";
-import { colors } from "../../theme";
+import { getStyles } from "./styles";
+import { useTheme } from "@/src/context/ThemeContext";
 
 interface Props {
   user: GitHubUser;
@@ -15,8 +15,16 @@ export const UserProfile: React.FC<Props> = ({
   isFavorite,
   onToggleFavorite,
 }) => {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={[
+        styles.container,
+        { backgroundColor: colors.background, flexGrow: 1 },
+      ]}
+    >
       <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
       <Text style={styles.username}>{user.name ?? user.login}</Text>
       {user.bio && <Text style={styles.bio}>{user.bio}</Text>}

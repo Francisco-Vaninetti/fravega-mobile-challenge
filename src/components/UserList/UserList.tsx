@@ -2,8 +2,8 @@ import React from "react";
 import { ActivityIndicator, FlatList, Text, ViewStyle } from "react-native";
 import { GitHubUser } from "@/src/context/FravoritesContext";
 import { UserCard } from "../UserCard";
-import { styles } from "./style";
-import { colors } from "../../theme";
+import { getStyles } from "./styles";
+import { useTheme } from "@/src/context/ThemeContext";
 
 interface Props {
   users: GitHubUser[];
@@ -18,6 +18,8 @@ export const UserList: React.FC<Props> = ({
   onUserPress,
   contentContainerStyle,
 }) => {
+  const { colors } = useTheme();
+  const styles = getStyles(colors);
   if (loading) {
     return <ActivityIndicator size="large" color={colors.primary} />;
   }
