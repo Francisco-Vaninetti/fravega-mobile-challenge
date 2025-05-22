@@ -1,50 +1,71 @@
-# Welcome to your Expo app 👋
+# Challenge Técnico Front Mobile - Frávega Tech
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este proyecto implementa los requisitos funcionales y técnicos del challenge:
 
-## Get started
+## Requisitos Funcionales
 
-1. Install dependencies
+- Pantalla de Inicio (Home):
+  - Obtiene lista inicial de usuarios de GitHub.
+  - Muestra usuarios en FlatList con avatar y nombre.
+  - Buscador para filtrar usuarios vía API.
+  - Marcado de favoritos en memoria o AsyncStorage.
 
-   ```bash
-   npm install
-   ```
+- Pantalla de Detalle del Usuario:
+  - Navegación desde Home.
+  - Muestra detalles del usuario via API.
+  - Permite marcar/desmarcar favorito.
 
-2. Start the app
+- Navegación y Estado Global:
+  - React Navigation para navegación.
+  - Context API para estado global de favoritos.
 
-   ```bash
-   npx expo start
-   ```
+## Requisitos Técnicos
 
-In the output, you'll find options to open the app in a
+- React Native con Expo.
+- React Navigation.
+- Axios para peticiones HTTP.
+- Uso de StyleSheet para estilos.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
+
+# Proyecto Expo - Setup y Uso
+
+Este proyecto fue creado con [`create-expo-app`](https://www.npmjs.com/package/create-expo-app) y usa Expo para el desarrollo móvil multiplataforma, para el challenge de Frávega.tech.
+
+## Instrucciones para comenzar
+
+### 1. Instalación de dependencias
+
+> **Importante:** Para evitar conflictos con las dependencias y peer dependencies, ejecutá la instalación con el flag:
 
 ```bash
-npm run reset-project
+npm install --legacy-peer-deps
+
+# o
+yarn install --legacy-peer-deps
+```
+### 2. Ejecutar el proyecto
+Para iniciar el proyecto, ejecutá el siguiente comando:
+
+```bash
+npx run start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 3. Tests
+Este proyecto utiliza Jest y React Native Testing Library para tests unitarios y de integración.
 
-## Learn more
+Ejecutar tests :
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm run test
+```
+Ejectutar tests en watch mode:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm run test:watch
+```
+Esto permite ejecutar tests en modo interactivo, corriendo solo los tests afectados al cambiar archivos.
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
