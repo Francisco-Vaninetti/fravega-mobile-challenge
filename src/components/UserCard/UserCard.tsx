@@ -38,15 +38,20 @@ export const UserCard: React.FC<Props> = ({ user, onPress }) => {
   };
 
   return (
-    <Pressable onPress={onPress} style={styles.card}>
+    <Pressable onPress={onPress} style={styles.card} testID="user-card">
       <View style={styles.infoContainer}>
         <Image source={{ uri: user.avatar_url }} style={styles.avatar} />
         <Text style={styles.username}>{user.login}</Text>
       </View>
 
-      <Pressable onPress={handleToggleFavorite} hitSlop={10}>
+      <Pressable
+        onPress={handleToggleFavorite}
+        hitSlop={10}
+        testID="star-icon-wrapper"
+      >
         <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
           <FontAwesome
+            testID="star-icon"
             name={isFavorite(user) ? "star" : "star-o"}
             size={24}
             color={colors.primary}

@@ -21,11 +21,18 @@ export const UserList: React.FC<Props> = ({
   const { colors } = useTheme();
   const styles = getStyles(colors);
   if (loading) {
-    return <ActivityIndicator size="large" color={colors.primary} />;
+    return (
+      <ActivityIndicator
+        size="large"
+        color={colors.primary}
+        testID="ActivityIndicator"
+      />
+    );
   }
 
   return (
     <FlatList
+      testID="user-list"
       data={users}
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
