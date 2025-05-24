@@ -13,4 +13,11 @@ export const getStyles = (colors: Colors) =>
       marginBottom: spacing.md,
       color: colors.text,
     },
+
+    header: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: spacing.md,
+    },
   });

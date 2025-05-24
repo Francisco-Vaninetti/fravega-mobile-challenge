@@ -8,6 +8,7 @@ import { UserList } from "../../components/UserList";
 import { RootStackParamList } from "../../navigation/types";
 import { getStyles } from "./styles";
 import { useTheme } from "@/src/context/ThemeContext";
+import { ThemeToggle } from "@/src/components/ThemeToggle";
 
 export const HomeScreen: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -27,8 +28,10 @@ export const HomeScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Usuarios de GitHub</Text>
-
+      <View style={styles.header}>
+        <Text style={styles.title}>Usuarios de GitHub</Text>
+        <ThemeToggle />
+      </View>
       <SearchInput
         value={search}
         onChange={setSearch}
